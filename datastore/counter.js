@@ -25,8 +25,8 @@ const readCounter = (callback) => {
   });
 };
 
-const writeCounter = (count, callback) => { // 1
-  var counterString = zeroPaddedNumber(count); // 1     00001
+const writeCounter = (count, callback) => {
+  var counterString = zeroPaddedNumber(count);
   fs.writeFile(exports.counterFile, counterString, (err) => {
     if (err) {
       throw ('error writing counter');
@@ -45,9 +45,9 @@ exports.getNextUniqueId = (callback) => {
   // return zeroPaddedNumber(counter);
   readCounter((error, count) => {
     writeCounter(count + 1, (error, fiveDigitCount) => {
-      callback(error, fiveDigitCount)
-    })
-  })
+      callback(error, fiveDigitCount);
+    });
+  });
 };
 
 
@@ -92,3 +92,4 @@ https://us04web.zoom.us/j/76644069323?pwd=cDFmQ3BJTGVvSDZTM1NiUG5XSTNEUT09
 // Configuration -- DO NOT MODIFY //////////////////////////////////////////////
 
 exports.counterFile = path.join(__dirname, 'counter.txt');
+// filename =   path.join( dataDir, ${counter}.txt)

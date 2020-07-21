@@ -14,7 +14,7 @@ var counter = 0;
 const zeroPaddedNumber = (num) => {
   return sprintf('%05d', num);
 };
-
+// reads the counter File, if file is not found, return null and 0
 const readCounter = (callback) => {
   fs.readFile(exports.counterFile, (err, fileData) => {
     if (err) {
@@ -25,8 +25,8 @@ const readCounter = (callback) => {
   });
 };
 
-const writeCounter = (count, callback) => {
-  var counterString = zeroPaddedNumber(count);
+const writeCounter = (count, callback) => { // 1
+  var counterString = zeroPaddedNumber(count); // 1     00001
   fs.writeFile(exports.counterFile, counterString, (err) => {
     if (err) {
       throw ('error writing counter');
@@ -38,10 +38,54 @@ const writeCounter = (count, callback) => {
 
 // Public API - Fix this function //////////////////////////////////////////////
 
-exports.getNextUniqueId = () => {
-  counter = counter + 1;
-  return zeroPaddedNumber(counter);
+
+
+exports.getNextUniqueId = (callback) => {
+  // counter = counter + 1;
+  // return zeroPaddedNumber(counter);
+  readCounter((error, count) => {
+    writeCounter(count + 1, (error, fiveDigitCount) => {
+      callback(error, fiveDigitCount)
+    })
+  })
 };
+
+
+/*
+exports.getNextUniqueId = (callback) => {
+
+  readCounter( function (error, count) => count
+
+
+  {
+    writeCounter( count , (error, count) => count
+
+    error   you get an error
+    success (null,  count)
+  })
+
+
+
+  readCounter((error, count) => {
+    writeCounter(count + 1, (error, count) => {
+      callback(error, count)
+    }
+  })
+}
+*/
+
+/*
+let example = function (anotherFunction) {
+  let A = 'A'
+  anotherFunction(A) {
+    let B = 'B'
+    A = A + B
+  }
+
+  return A
+}
+*/
+https://us04web.zoom.us/j/76644069323?pwd=cDFmQ3BJTGVvSDZTM1NiUG5XSTNEUT09
 
 
 

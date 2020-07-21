@@ -68,12 +68,18 @@ exports.readOne = (id, callback) => {
 exports.update = (id, text, callback) => {
 
   let filepath = path.join(exports.dataDir, `${id}.txt`);
-  console.log(filepath);
-  fs.writeFile(filepath, text, (err) => {
-    if (err) {
-      callback(err);
+  fs.readFile(filepath, (error) => {
+    if (error) {
+      callback(error);
+      console.log('file id does not exist');
     } else {
-      callback(null, {'id': id, 'text': text})
+      fs.writeFile(filepath, text, (err) => {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null, {'id': id, 'text': text});
+        }
+      });
     }
   });
   // var item = items[id];

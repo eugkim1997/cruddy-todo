@@ -19,8 +19,8 @@ exports.create = (text, callback) => {
       } else {
         callback(null, { id, text });
       }
-    })
-  })
+    });
+  });
 };
 
 //   var id = counter.getNextUniqueId();
@@ -34,22 +34,12 @@ exports.readAll = (callback) => {
     if (error) {
       callback(error);
     } else {
-      for (var i = 0 ; i < files.length ; i++) {
-        let filepath = path.join(exports.dataDir, files[i]);
-        fs.readFile(filepath, (err, fileData) => {
-          if (err) {
-            callback(err);
-          } else {
-            //console.log({'id': files[i], 'text': String(fileData)})
-            console.log(i);
-            arr.push({'id': files[i], 'text': String(fileData)});
-          }
-        });
+      for (let i = 0; i < files.length; i++) {
+        arr.push({'id': files[i].split('.')[0], 'text': files[i].split('.')[0]});
       }
-      //console.log(arr);
       callback(null, arr);
     }
-  })
+  });
 
   // var data = _.map(items, (text, id) => {
   //   return { id, text };
